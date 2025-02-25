@@ -36,7 +36,7 @@
 1. Build the frontend Docker image:
 
     ```html
-    docker build -t ghcr.io/<githubusername>/counter-frontend frontend
+    docker build -f Dockerfile.frontend -t ghcr.io/<githubusername>/counter-frontend .
     ```
 
 2. Push the frontend Docker image to GitHub Container Registry:
@@ -52,7 +52,7 @@
 1. Build the backend Docker image:
 
     ```html
-    docker build -t ghcr.io/<githubusername>/counter-backend backend
+    docker build -f Dockerfile.backend -t ghcr.io/<githubusername>/counter-backend .
     ```
 
 2. Push the backend Docker image to GitHub Container Registry:
