@@ -69,11 +69,10 @@ RUN chown -R node:node /srv/app
 USER node
 
 # Copy built application from builder stage
-COPY --chown=node:node --from=builder ["/srv/app/build", "./build"]
 COPY --chown=node:node --from=builder ["/srv/app/node_modules", "./node_modules"]
 COPY --chown=node:node --from=builder ["/srv/app/package*.json", "./"]
 COPY --chown=node:node --from=builder ["/srv/app/entrypoint.sh", "./entrypoint.sh"]
 COPY --chown=node:node --from=builder ["/srv/app/public", "./public"]
 
-# Switch back to non-root user
-USER node
+# Copy build directory with OpenShift-compatible permissions (group writable for random UID)
+COPY --chown=node:0 --chmod=775 --from=builder ["/srv/app/build", "./build"]
