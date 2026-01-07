@@ -21,10 +21,13 @@ let publicFolder = path.resolve(__dirname, '..')
 publicFolder = path.resolve(publicFolder, '..')
 app.use(express.static(path.join(publicFolder, 'build')));
 
-// serve api 
+// serve api
 app.use('/api/useCases', usecaseApi)
 app.use('/api/measurements', measurementApi)
 app.use('/api/health', healthApi)
+app.get('/', (req, res) => {
+  res.sendStatus(200);
+});
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
