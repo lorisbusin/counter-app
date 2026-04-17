@@ -19,7 +19,7 @@ services:
 
   # PgAdmin service configuration
   pgadmin:
-    image: ghcr.io/modul-i-ch-109/pgadmin4:latest
+    image: dpage/pgadmin4:latest
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}    # Default email address for PgAdmin login
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}  # Default password for PgAdmin login
