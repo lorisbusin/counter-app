@@ -1,8 +1,8 @@
 # Docker Compose Configuration File
 # This file defines and configures the services, networks, and volumes required for the application.
-
+ 
 services:
-
+ 
   # Database service configuration
   counter-database:
     image: postgres:15
@@ -16,7 +16,7 @@ services:
       - counter-database-data:/var/lib/postgresql/data  # Persistent storage for PostgreSQL data
     networks:
       - counter-app                           # Connect to the 'counter-app' network
-
+ 
   # PgAdmin service configuration
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -24,14 +24,14 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}    # Default email address for PgAdmin login
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}  # Default password for PgAdmin login
     ports:
-      - "5050:5050"                           # Expose PgAdmin on port 5050
+      - "5050:80"                           # Expose PgAdmin on port 5050
     volumes:
       - counter-pgadmin-data:/pgadmin          # Persistent storage for PgAdmin data
     depends_on:
       - counter-database                       # Ensure the database service is started before PgAdmin
     networks:
       - counter-app                           # Connect to the 'counter-app' network
-
+ 
   # Backend service configuration
   backend:
     build:
@@ -51,7 +51,7 @@ services:
       - counter-database                         # Ensure the database service is started before the backend
     networks:
       - counter-app                              # Connect to the 'counter-app' network
-
+ 
   # Frontend service configuration
   frontend:
     build:
@@ -66,12 +66,12 @@ services:
       - "3000:3000"                              # Expose frontend service on port 3000
     networks:
       - counter-app                              # Connect to the 'counter-app' network
-
+ 
 # Network configuration
 networks:
   counter-app:
     driver: bridge  # Use the bridge driver for network isolation
-
+ 
 # Volume configuration for persistent data
 volumes:
   counter-database-data:   # Volume for PostgreSQL data storage
